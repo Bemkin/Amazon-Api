@@ -1,5 +1,5 @@
 const express = require('express');
-const stripe = require('stripe')('sk_test_51QSfl2EpYK2646EX2zPJx0GUtRuPa17LKXCFViVME0oq4h2SzLPVPYUoNgWRXdW6A4zdRUp7JexAclpjlGzC1XDZ00JoMhieIA');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -32,7 +32,7 @@ app.post('/create-payment-intent', async (req, res) => {
       clientSecret: paymentIntent.client_secret,
     });
   } catch (error) {
-    console.error('Error creating payment intent:', error); // Improved error logging
+    console.error('Error creating payment intent:', error); 
     res.status(500).send({ error: error.message });
   }
 });
